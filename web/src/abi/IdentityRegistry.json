@@ -1,0 +1,56 @@
+[
+  {
+    "type": "function",
+    "name": "safeTransferFrom",
+    "inputs": [
+      { "name": "from", "type": "address" },
+      { "name": "to", "type": "address" },
+      { "name": "tokenId", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "tokenURI",
+    "inputs": [{ "name": "tokenId", "type": "uint256" }],
+    "outputs": [{ "type": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getMetadata",
+    "inputs": [
+      { "name": "agentId", "type": "uint256" },
+      { "name": "metadataKey", "type": "string" }
+    ],
+    "outputs": [{ "type": "bytes" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "register",
+    "inputs": [
+      { "name": "agentURI", "type": "string" },
+      {
+        "name": "metadata",
+        "type": "tuple[]",
+        "components": [
+          { "name": "metadataKey", "type": "string" },
+          { "name": "metadataValue", "type": "bytes" }
+        ]
+      }
+    ],
+    "outputs": [{ "name": "agentId", "type": "uint256" }],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "Transfer",
+    "inputs": [
+      { "indexed": true, "name": "from", "type": "address" },
+      { "indexed": true, "name": "to", "type": "address" },
+      { "indexed": true, "name": "tokenId", "type": "uint256" }
+    ]
+  }
+]

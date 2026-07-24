@@ -1,0 +1,393 @@
+{
+  "address": "0x1C8B8A2b1aeb55FCC84117C33F3BB4960122612C",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "usdc_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint16",
+          "name": "bondBP_",
+          "type": "uint16"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyLocked",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CoreAlreadySet",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidBondBP",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotCore",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotLocked",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "jobId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "provider",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BondLocked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "jobId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "BondReleased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "core",
+          "type": "address"
+        }
+      ],
+      "name": "CoreSet",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "bondBP",
+      "outputs": [
+        {
+          "internalType": "uint16",
+          "name": "",
+          "type": "uint16"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "bondOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "budget",
+          "type": "uint256"
+        }
+      ],
+      "name": "bondRequired",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "core",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "jobId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "provider",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "budget",
+          "type": "uint256"
+        }
+      ],
+      "name": "lock",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "locked",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "jobId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "release",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "core_",
+          "type": "address"
+        }
+      ],
+      "name": "setCore",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "usdc",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xc78e5eb08bff288e47044d588f5a6800340ca81c3a84e40c1b748ca1a2307951",
+  "receipt": {
+    "to": null,
+    "from": "0xA7b4c3A498B7FE206fCD3888bDe6b72264729f4a",
+    "contractAddress": "0x1C8B8A2b1aeb55FCC84117C33F3BB4960122612C",
+    "transactionIndex": 9,
+    "gasUsed": "479193",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xec7c792152da9e8ba4021c3dcfb436aab5f7f53ff1bb1eb3ba3a34e7985a33af",
+    "transactionHash": "0xc78e5eb08bff288e47044d588f5a6800340ca81c3a84e40c1b748ca1a2307951",
+    "logs": [],
+    "blockNumber": 53289189,
+    "cumulativeGasUsed": "1453289",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x3600000000000000000000000000000000000000",
+    2000
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "d7d241ecf2717c62a791aa91701ee1f8",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.24+commit.e11b9ed9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"usdc_\",\"type\":\"address\"},{\"internalType\":\"uint16\",\"name\":\"bondBP_\",\"type\":\"uint16\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AlreadyLocked\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CoreAlreadySet\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidBondBP\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotCore\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotLocked\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAddress\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"jobId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"provider\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"BondLocked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"jobId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"BondReleased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"core\",\"type\":\"address\"}],\"name\":\"CoreSet\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"bondBP\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"bondOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"budget\",\"type\":\"uint256\"}],\"name\":\"bondRequired\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"core\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"jobId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"provider\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"budget\",\"type\":\"uint256\"}],\"name\":\"lock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"locked\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"jobId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"release\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"core_\",\"type\":\"address\"}],\"name\":\"setCore\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"usdc\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/bonds/ProviderBond.sol\":\"ProviderBond\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/bonds/ProviderBond.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\nimport {IERC20} from \\\"../interfaces/IERC20.sol\\\";\\nimport {IProviderBond} from \\\"../interfaces/IBonds.sol\\\";\\n\\ncontract ProviderBond is IProviderBond {\\n    IERC20 public immutable usdc;\\n    uint16 public immutable bondBP;\\n    address public immutable owner;\\n    address public core;\\n\\n    mapping(uint256 => uint256) public bondOf;\\n    mapping(uint256 => bool) public locked;\\n\\n    event CoreSet(address indexed core);\\n    event BondLocked(uint256 indexed jobId, address indexed provider, uint256 amount);\\n    event BondReleased(uint256 indexed jobId, address indexed to, uint256 amount);\\n\\n    error NotCore();\\n    error NotOwner();\\n    error CoreAlreadySet();\\n    error AlreadyLocked();\\n    error NotLocked();\\n    error TransferFailed();\\n    error ZeroAddress();\\n    error InvalidBondBP();\\n\\n    modifier onlyCore() {\\n        if (msg.sender != core) revert NotCore();\\n        _;\\n    }\\n\\n    constructor(address usdc_, uint16 bondBP_) {\\n        if (usdc_ == address(0)) revert ZeroAddress();\\n        if (bondBP_ > 10_000) revert InvalidBondBP();\\n        usdc = IERC20(usdc_);\\n        bondBP = bondBP_;\\n        owner = msg.sender;\\n    }\\n\\n    function setCore(address core_) external {\\n        if (msg.sender != owner) revert NotOwner();\\n        if (core != address(0)) revert CoreAlreadySet();\\n        if (core_ == address(0)) revert ZeroAddress();\\n        core = core_;\\n        emit CoreSet(core_);\\n    }\\n\\n    function bondRequired(uint256 budget) public view returns (uint256) {\\n        return (budget * bondBP) / 10_000;\\n    }\\n\\n    function lock(uint256 jobId, address provider, uint256 budget) external onlyCore returns (uint256 amount) {\\n        if (locked[jobId]) revert AlreadyLocked();\\n        amount = bondRequired(budget);\\n        locked[jobId] = true;\\n        if (amount != 0) {\\n            if (!usdc.transferFrom(provider, address(this), amount)) revert TransferFailed();\\n            bondOf[jobId] = amount;\\n        }\\n        emit BondLocked(jobId, provider, amount);\\n    }\\n\\n    function release(uint256 jobId, address to) external onlyCore returns (uint256 amount) {\\n        if (!locked[jobId]) revert NotLocked();\\n        amount = bondOf[jobId];\\n        delete bondOf[jobId];\\n        delete locked[jobId];\\n        if (amount != 0 && !usdc.transfer(to, amount)) revert TransferFailed();\\n        emit BondReleased(jobId, to, amount);\\n    }\\n}\\n\",\"keccak256\":\"0x7e531cfd0a0dd03b4d932af22b9d84f56b2d10f4b51779b6aecbbaac30ff601d\",\"license\":\"MIT\"},\"contracts/interfaces/IBonds.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\ninterface IProviderBond {\\n    function lock(uint256 jobId, address provider, uint256 budget) external returns (uint256 amount);\\n    function release(uint256 jobId, address to) external returns (uint256 amount);\\n    function bondRequired(uint256 budget) external view returns (uint256);\\n}\\n\\ninterface IEvaluatorStake {\\n    function ratingWindow() external view returns (uint64);\\n    function agentOwner(uint256 agentId) external view returns (address);\\n    function maxExpiryDuration(uint256 agentId) external view returns (uint64);\\n    function maxBudget(uint256 agentId) external view returns (uint256);\\n    function isActive(uint256 agentId) external view returns (bool);\\n    function onAssigned(uint256 agentId, uint256 jobId, uint256 budget) external;\\n    function onResolved(uint256 agentId, uint256 jobId) external;\\n    function clearJob(uint256 agentId, uint256 jobId) external;\\n    function applyRating(uint256 agentId, uint16 scoreTenths, uint256 budget) external;\\n}\\n\\ninterface ISettleNetHook {\\n    function cancelOpenJobs(uint256 agentId) external returns (uint256[] memory cancelled);\\n}\\n\",\"keccak256\":\"0x373c378d3f75c056548d2c9bcb178884e2aae34b3d5949521226712f429333f7\",\"license\":\"MIT\"},\"contracts/interfaces/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\ninterface IERC20 {\\n    function transfer(address to, uint256 amount) external returns (bool);\\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\\n}\\n\",\"keccak256\":\"0x2f7416b7004d2c9613f5eb0a54671939e4012b7b1e8a69ba81c89c12715f6a86\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60e060405234801561001057600080fd5b506040516108db3803806108db83398101604081905261002f9161009b565b6001600160a01b0382166100565760405163d92e233d60e01b815260040160405180910390fd5b6127108161ffff16111561007d576040516338c3dc6d60e01b815260040160405180910390fd5b6001600160a01b0390911660805261ffff1660a0523360c0526100e8565b600080604083850312156100ae57600080fd5b82516001600160a01b03811681146100c557600080fd5b602084015190925061ffff811681146100dd57600080fd5b809150509250929050565b60805160a05160c0516107a96101326000396000818161016f015261025801526000818160a80152610217015260008181610108015281816103e2015261056b01526107a96000f3fe608060405234801561001057600080fd5b506004361061009e5760003560e01c80638da5cb5b116100665780638da5cb5b1461016a578063b45a3c0e14610191578063c60df258146101c4578063cf27cfc4146101e4578063f2f4eb26146101f757600080fd5b80630ffefecf146100a35780632c12f1db146100e25780633e413bee1461010357806380009630146101425780638124fea614610157575b600080fd5b6100ca7f000000000000000000000000000000000000000000000000000000000000000081565b60405161ffff90911681526020015b60405180910390f35b6100f56100f0366004610652565b61020a565b6040519081526020016100d9565b61012a7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100d9565b610155610150366004610687565b61024d565b005b6100f56101653660046106a9565b61032f565b61012a7f000000000000000000000000000000000000000000000000000000000000000081565b6101b461019f366004610652565b60026020526000908152604090205460ff1681565b60405190151581526020016100d9565b6100f56101d2366004610652565b60016020526000908152604090205481565b6100f56101f23660046106d5565b6104b9565b60005461012a906001600160a01b031681565b600061271061023d61ffff7f0000000000000000000000000000000000000000000000000000000000000000168461070a565b610247919061072f565b92915050565b336001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001614610296576040516330cd747160e01b815260040160405180910390fd5b6000546001600160a01b0316156102c05760405163b99dfcab60e01b815260040160405180910390fd5b6001600160a01b0381166102e75760405163d92e233d60e01b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917f90db982ad7e7c631cc388cc3f76688bf08ffe8a87e161db50887cf7ef4194dee91a250565b600080546001600160a01b0316331461035b5760405163e2aae06b60e01b815260040160405180910390fd5b60008381526002602052604090205460ff1661038a57604051631834e26560e01b815260040160405180910390fd5b5060008281526001602090815260408083208054908490556002909252909120805460ff191690558015801590610451575060405163a9059cbb60e01b81526001600160a01b038381166004830152602482018390527f0000000000000000000000000000000000000000000000000000000000000000169063a9059cbb906044016020604051808303816000875af115801561042b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061044f9190610751565b155b1561046f576040516312171d8360e31b815260040160405180910390fd5b816001600160a01b0316837f237ac240588fc2f18748d2b311309d8199900409a14802ac197d8e56d6691172836040516104ab91815260200190565b60405180910390a392915050565b600080546001600160a01b031633146104e55760405163e2aae06b60e01b815260040160405180910390fd5b60008481526002602052604090205460ff1615610515576040516317c3335f60e21b815260040160405180910390fd5b61051e8261020a565b6000858152600260205260409020805460ff1916600117905590508015610607576040516323b872dd60e01b81526001600160a01b038481166004830152306024830152604482018390527f000000000000000000000000000000000000000000000000000000000000000016906323b872dd906064016020604051808303816000875af11580156105b4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105d89190610751565b6105f5576040516312171d8360e31b815260040160405180910390fd5b60008481526001602052604090208190555b826001600160a01b0316847fb16708100112dc43552926992ba0fe463de6beaae2605321375f73c3626178778360405161064391815260200190565b60405180910390a39392505050565b60006020828403121561066457600080fd5b5035919050565b80356001600160a01b038116811461068257600080fd5b919050565b60006020828403121561069957600080fd5b6106a28261066b565b9392505050565b600080604083850312156106bc57600080fd5b823591506106cc6020840161066b565b90509250929050565b6000806000606084860312156106ea57600080fd5b833592506106fa6020850161066b565b9150604084013590509250925092565b808202811582820484141761024757634e487b7160e01b600052601160045260246000fd5b60008261074c57634e487b7160e01b600052601260045260246000fd5b500490565b60006020828403121561076357600080fd5b815180151581146106a257600080fdfea26469706673582212200470d33bbd1959131e8bb5882de08734ef5052a5bc6974700b3d051bcc653d7c64736f6c63430008180033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061009e5760003560e01c80638da5cb5b116100665780638da5cb5b1461016a578063b45a3c0e14610191578063c60df258146101c4578063cf27cfc4146101e4578063f2f4eb26146101f757600080fd5b80630ffefecf146100a35780632c12f1db146100e25780633e413bee1461010357806380009630146101425780638124fea614610157575b600080fd5b6100ca7f000000000000000000000000000000000000000000000000000000000000000081565b60405161ffff90911681526020015b60405180910390f35b6100f56100f0366004610652565b61020a565b6040519081526020016100d9565b61012a7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020016100d9565b610155610150366004610687565b61024d565b005b6100f56101653660046106a9565b61032f565b61012a7f000000000000000000000000000000000000000000000000000000000000000081565b6101b461019f366004610652565b60026020526000908152604090205460ff1681565b60405190151581526020016100d9565b6100f56101d2366004610652565b60016020526000908152604090205481565b6100f56101f23660046106d5565b6104b9565b60005461012a906001600160a01b031681565b600061271061023d61ffff7f0000000000000000000000000000000000000000000000000000000000000000168461070a565b610247919061072f565b92915050565b336001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001614610296576040516330cd747160e01b815260040160405180910390fd5b6000546001600160a01b0316156102c05760405163b99dfcab60e01b815260040160405180910390fd5b6001600160a01b0381166102e75760405163d92e233d60e01b815260040160405180910390fd5b600080546001600160a01b0319166001600160a01b038316908117825560405190917f90db982ad7e7c631cc388cc3f76688bf08ffe8a87e161db50887cf7ef4194dee91a250565b600080546001600160a01b0316331461035b5760405163e2aae06b60e01b815260040160405180910390fd5b60008381526002602052604090205460ff1661038a57604051631834e26560e01b815260040160405180910390fd5b5060008281526001602090815260408083208054908490556002909252909120805460ff191690558015801590610451575060405163a9059cbb60e01b81526001600160a01b038381166004830152602482018390527f0000000000000000000000000000000000000000000000000000000000000000169063a9059cbb906044016020604051808303816000875af115801561042b573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061044f9190610751565b155b1561046f576040516312171d8360e31b815260040160405180910390fd5b816001600160a01b0316837f237ac240588fc2f18748d2b311309d8199900409a14802ac197d8e56d6691172836040516104ab91815260200190565b60405180910390a392915050565b600080546001600160a01b031633146104e55760405163e2aae06b60e01b815260040160405180910390fd5b60008481526002602052604090205460ff1615610515576040516317c3335f60e21b815260040160405180910390fd5b61051e8261020a565b6000858152600260205260409020805460ff1916600117905590508015610607576040516323b872dd60e01b81526001600160a01b038481166004830152306024830152604482018390527f000000000000000000000000000000000000000000000000000000000000000016906323b872dd906064016020604051808303816000875af11580156105b4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906105d89190610751565b6105f5576040516312171d8360e31b815260040160405180910390fd5b60008481526001602052604090208190555b826001600160a01b0316847fb16708100112dc43552926992ba0fe463de6beaae2605321375f73c3626178778360405161064391815260200190565b60405180910390a39392505050565b60006020828403121561066457600080fd5b5035919050565b80356001600160a01b038116811461068257600080fd5b919050565b60006020828403121561069957600080fd5b6106a28261066b565b9392505050565b600080604083850312156106bc57600080fd5b823591506106cc6020840161066b565b90509250929050565b6000806000606084860312156106ea57600080fd5b833592506106fa6020850161066b565b9150604084013590509250925092565b808202811582820484141761024757634e487b7160e01b600052601160045260246000fd5b60008261074c57634e487b7160e01b600052601260045260246000fd5b500490565b60006020828403121561076357600080fd5b815180151581146106a257600080fdfea26469706673582212200470d33bbd1959131e8bb5882de08734ef5052a5bc6974700b3d051bcc653d7c64736f6c63430008180033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3481,
+        "contract": "contracts/bonds/ProviderBond.sol:ProviderBond",
+        "label": "core",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 3485,
+        "contract": "contracts/bonds/ProviderBond.sol:ProviderBond",
+        "label": "bondOf",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      },
+      {
+        "astId": 3489,
+        "contract": "contracts/bonds/ProviderBond.sol:ProviderBond",
+        "label": "locked",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

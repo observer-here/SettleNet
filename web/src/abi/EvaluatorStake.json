@@ -1,0 +1,907 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "usdc_",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "identity_",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "reputation_",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "treasury_",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "minStake_",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maxJobWeight_",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint16",
+                "name": "stakeCoverageBP_",
+                "type": "uint16"
+            },
+            {
+                "internalType": "uint8",
+                "name": "scoreFloor_",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint32",
+                "name": "minRatings_",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint64",
+                "name": "ratingWindow_",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "ActiveJobsExist",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "AgentRetired",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "AlreadyAssigned",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BadAgentId",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BadExpiryDuration",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BadMaxBudget",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BadScore",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BadScoreFloor",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "BelowMinStake",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "CoreAlreadySet",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotCore",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotOwner",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotOwnerOfAgent",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Reentrant",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Slashable",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "StakeLocked",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "TransferFailed",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "Understaked",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZeroAddress",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZeroMinStake",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZeroRatingWindow",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+            }
+        ],
+        "name": "AgentStaked",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "core",
+                "type": "address"
+            }
+        ],
+        "name": "CoreSet",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+            }
+        ],
+        "name": "MaxBudgetSet",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint64",
+                "name": "duration",
+                "type": "uint64"
+            }
+        ],
+        "name": "MaxExpirySet",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "offline",
+                "type": "bool"
+            }
+        ],
+        "name": "OfflineSet",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "PendingSlash",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint16",
+                "name": "scoreTenths",
+                "type": "uint16"
+            }
+        ],
+        "name": "Rated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "Slashed",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "Withdrawn",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "agentOwner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "agents",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "stake",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ratingWeight",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ratingScore",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint32",
+                "name": "ratingCount",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint64",
+                "name": "maxExpiry",
+                "type": "uint64"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maxBudget",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "pendingSlashAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "offline",
+                "type": "bool"
+            },
+            {
+                "internalType": "bool",
+                "name": "pendingSlash",
+                "type": "bool"
+            },
+            {
+                "internalType": "bool",
+                "name": "retired",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint16",
+                "name": "scoreTenths",
+                "type": "uint16"
+            },
+            {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+            }
+        ],
+        "name": "applyRating",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "jobId",
+                "type": "uint256"
+            }
+        ],
+        "name": "clearJob",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "core",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "finalizePendingSlash",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "identity",
+        "outputs": [
+            {
+                "internalType": "contract IIdentityRegistry",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "isActive",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "maxBudget",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "maxExpiryDuration",
+        "outputs": [
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "maxJobWeight",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "minRatings",
+        "outputs": [
+            {
+                "internalType": "uint32",
+                "name": "",
+                "type": "uint32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "minStake",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "jobId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+            }
+        ],
+        "name": "onAssigned",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "jobId",
+                "type": "uint256"
+            }
+        ],
+        "name": "onResolved",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "ratingWindow",
+        "outputs": [
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "reputation",
+        "outputs": [
+            {
+                "internalType": "contract IReputationRegistry",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "scoreFloor",
+        "outputs": [
+            {
+                "internalType": "uint8",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            }
+        ],
+        "name": "scoreOf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "core_",
+                "type": "address"
+            }
+        ],
+        "name": "setCore",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+            }
+        ],
+        "name": "setMaxBudget",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint64",
+                "name": "duration",
+                "type": "uint64"
+            }
+        ],
+        "name": "setMaxExpiryDuration",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "offline_",
+                "type": "bool"
+            }
+        ],
+        "name": "setOffline",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "snapshotOf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "stake",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "stakeCoverageBP",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "treasury",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "unlockAt",
+        "outputs": [
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "usdc",
+        "outputs": [
+            {
+                "internalType": "contract IERC20",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "agentId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
