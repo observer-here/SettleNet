@@ -1247,9 +1247,9 @@ function StakeDonut({
   return (
     <div className="panel rounded-md p-1 md:rounded-xl md:p-3.5">
       <h3 className="mb-3 text-sm font-semibold">{title}</h3>
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-4">
         <div
-          className="relative h-28 w-28 shrink-0 rounded-full"
+          className="relative mx-auto h-28 w-28 shrink-0 rounded-full sm:mx-0"
           style={{
             background:
               stake === 0n
@@ -1269,8 +1269,8 @@ function StakeDonut({
             <LegendDot color="#22c55e" label="Available" value={`${formatUsdc(available)} · ${availPct.toFixed(1)}%`} />
             <LegendDot color="#8b5cf6" label="Locked" value={`${formatUsdc(lockedAmt)} · ${lockedPct.toFixed(1)}%`} />
             {slice.map((l) => (
-              <li key={String(l.jobId)} className="flex items-start gap-[16.5rem] text-[11px]">
-                <span className="min-w-0 text-[var(--color-text)]">
+              <li key={String(l.jobId)} className="flex items-baseline justify-between gap-2 text-[11px]">
+                <span className="min-w-0 truncate text-[var(--color-text)]">
                   #{String(l.jobId)} · {formatUsdc(l.amount)} coverage
                 </span>
                 <span className="shrink-0 tabular-nums text-[var(--color-muted)]">
@@ -1333,12 +1333,12 @@ function StakeCard({
 
 function LegendDot({ color, label, value }: { color: string; label: string; value: string }) {
   return (
-    <li className="flex items-center gap-[19.8rem]">
-      <span className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full" style={{ background: color }} />
+    <li className="flex items-center justify-between gap-2">
+      <span className="flex min-w-0 items-center gap-2">
+        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
         {label}
       </span>
-      <span className="tabular-nums text-[var(--color-muted)]">{value}</span>
+      <span className="shrink-0 tabular-nums text-[var(--color-muted)]">{value}</span>
     </li>
   );
 }
