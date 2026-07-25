@@ -34,6 +34,7 @@ import { JobStatus, STATUS_LABEL } from "@/types/job";
 import { formatExpiryAt, formatScore, formatUsdc, jobTitle, relativeTime, shortAddr, timeLeft } from "@/utils/format";
 import { claimJobWithBond } from "@/utils/claimJob";
 import { toastTx } from "@/components/ui/Toast";
+import { ServiceGate, useServiceDown } from "@/components/layout/ServiceUnreachable";
 import { bondOf, canClaimRefund, cancelFeeOf, feeOf, isZero, jobTimeline } from "@/utils/jobMath";
 import { linkifyText } from "@/utils/linkify";
 
@@ -71,6 +72,7 @@ export function JobDetailPage() {
   const [tab, setTab] = useState<Tab>("overview");
   const [submission, setSubmission] = useState("");
   const [score, setScore] = useState("8");
+  const serviceDown = useServiceDown();
 
   const enabled = jobId !== undefined && jobId > 0n;
   const { data: chainReads } = useReadContracts({
@@ -150,7 +152,7 @@ export function JobDetailPage() {
   if (!jobId) {
     return <p className="text-sm text-[var(--color-muted)]">Invalid job</p>;
   }
-
+  if (serviceDown) return <ServiceGate>{null}</ServiceGate>;
   if (isLoading && !job) {
     return <JobDetailSkeleton />;
   }

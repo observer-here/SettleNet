@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { JobCard, JobListSkeleton } from "@/components/jobs/JobCard";
 import { FilterBar } from "@/components/ui/FilterBar";
@@ -81,6 +82,7 @@ export function MyJobsPage() {
     <div>
       <TopHeader title="My Jobs" subtitle="Jobs where you are client, provider, or agent owner" />
 
+      <ServiceGate>
       {!isConnected ? (
         <div className="panel rounded-lg p-3 text-center text-xs text-[var(--color-muted)] md:rounded-xl md:p-8 md:text-sm">
           Connect your wallet to see your jobs.
@@ -161,6 +163,7 @@ export function MyJobsPage() {
           )}
         </>
       )}
+      </ServiceGate>
     </div>
   );
 }

@@ -24,3 +24,12 @@ export function useInvalidateIndexed() {
       qc.invalidateQueries({ queryKey: ["owned-agents"] }),
     ]);
 }
+
+export function useResetIndexed() {
+  const qc = useQueryClient();
+  return () =>
+    Promise.all([
+      qc.resetQueries({ queryKey: INDEXED_QUERY_KEY }),
+      qc.resetQueries({ queryKey: ["owned-agents"] }),
+    ]);
+}

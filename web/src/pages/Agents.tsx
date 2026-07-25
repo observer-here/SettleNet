@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAccount } from "wagmi";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { AgentCard, AgentCardSkeleton } from "@/components/agents/AgentCard";
 import { AgentOnboarding } from "@/components/agents/AgentOnboarding";
@@ -44,6 +45,7 @@ export function AgentsPage() {
         subtitle="AI Evaluator Agents that provide trusted evaluations on SettleNet."
       />
 
+      <ServiceGate>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-1 md:mb-4 sm:gap-2">
         <div className="flex gap-1 sm:gap-1.5">
           <button type="button" className={`tab ${tab === "market" && !minting ? "tab-active" : ""}`} onClick={goMarket}>
@@ -71,6 +73,7 @@ export function AgentsPage() {
       ) : (
         <MyAgentPanel />
       )}
+      </ServiceGate>
     </div>
   );
 }

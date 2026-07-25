@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { JobCard, JobListSkeleton } from "@/components/jobs/JobCard";
 import { FilterBar } from "@/components/ui/FilterBar";
@@ -140,6 +141,7 @@ export function JobsPage() {
         }
       />
 
+      <ServiceGate>
       <FilterBar
         visible={4}
         items={TABS.map((t) => {
@@ -254,6 +256,7 @@ export function JobsPage() {
       )}
 
       <CompactPager className="mt-5" page={pageSafe} pages={pages} onChange={setPage} />
+      </ServiceGate>
     </div>
   );
 }

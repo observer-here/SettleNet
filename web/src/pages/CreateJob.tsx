@@ -1,6 +1,7 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { AmountChips } from "@/components/ui/AmountChips";
 import { addresses, BOND_BP, contracts, EVALUATOR_FEE_BP } from "@/config/contracts";
@@ -82,6 +83,7 @@ export function CreateJobPage() {
     <div>
       <TopHeader title="Create Job" subtitle="Lock USDC escrow for a new job" />
 
+      <ServiceGate>
       <div className="grid gap-0.5 md:gap-5 lg:grid-cols-[1fr_320px]">
         <form onSubmit={submit} className="panel space-y-2 rounded-md p-1 md:space-y-4 md:rounded-xl md:p-5">
           <label className="block space-y-1.5 text-sm">
@@ -204,6 +206,7 @@ export function CreateJobPage() {
           </div>
         </aside>
       </div>
+      </ServiceGate>
     </div>
   );
 }

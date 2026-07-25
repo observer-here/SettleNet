@@ -1,6 +1,7 @@
 import { useMemo, useState, type ComponentType } from "react";
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { JobCard, JobListSkeleton } from "@/components/jobs/JobCard";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
@@ -98,6 +99,7 @@ export function DashboardPage() {
         }
       />
 
+      <ServiceGate>
       <div
         className="mb-2 grid grid-cols-2 gap-1.5 md:mb-3 md:gap-2 xl:grid-cols-4"
         aria-busy={statsPending || undefined}
@@ -172,6 +174,7 @@ export function DashboardPage() {
           </div>
         )}
       </section>
+      </ServiceGate>
     </div>
   );
 }

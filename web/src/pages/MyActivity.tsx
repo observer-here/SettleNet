@@ -1,5 +1,6 @@
 import { useMemo, useState, type ComponentType, type MouseEvent } from "react";
 import { Link } from "react-router-dom";
+import { ServiceGate } from "@/components/layout/ServiceUnreachable";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { ACTIVITY_STATUS_UI } from "@/components/activity/WalletActivityRow";
 import { CompactPager } from "@/components/ui/CompactPager";
@@ -87,6 +88,7 @@ export function MyActivityPage() {
     <div>
       <TopHeader title="My Activity" subtitle="Track all your on-chain activities across SettleNet." />
 
+      <ServiceGate>
       <div className="space-y-0.5 md:space-y-3">
         <div className="mb-2 grid grid-cols-2 gap-1.5 md:mb-3 md:gap-2 xl:grid-cols-4" aria-busy={isLoading || undefined}>
           <Stat
@@ -289,6 +291,7 @@ export function MyActivityPage() {
           </aside>
         </div>
       </div>
+      </ServiceGate>
     </div>
   );
 }

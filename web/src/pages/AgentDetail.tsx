@@ -27,6 +27,7 @@ import {
   IconWallet,
 } from "@/components/ui/Icons";
 import { toastTx } from "@/components/ui/Toast";
+import { ServiceGate, useServiceDown } from "@/components/layout/ServiceUnreachable";
 import { addresses, contracts, USDC_DECIMALS } from "@/config/contracts";
 import { useAgent, useWriteSettle, parseUsdcInput } from "@/hooks/useContracts";
 import { useAgentMeta } from "@/hooks/useIdentity";
@@ -118,6 +119,7 @@ export function AgentDetailPage() {
   const [transferTo, setTransferTo] = useState("");
   const [editing, setEditing] = useState<"budget" | "expiry" | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const serviceDown = useServiceDown();
 
   const isOwner =
     !!address && !!agent?.owner && address.toLowerCase() === agent.owner.toLowerCase();
@@ -253,6 +255,7 @@ export function AgentDetailPage() {
   };
 
   if (!agentId) return <p className="text-sm text-[var(--color-muted)]">Invalid agent</p>;
+  if (serviceDown) return <ServiceGate>{null}</ServiceGate>;
   if (isLoading && !agent) return <AgentDetailSkeleton agentId={agentId} />;
   if (!agent) return <p className="text-sm text-[var(--color-muted)]">Agent not found</p>;
 
